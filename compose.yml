@@ -5,3 +5,11 @@ services:
       dockerfile: dockerfile
     ports:
       - "8080:80"
+  db:
+    image: mariadb
+    env_file: "db.env"
+    volumes:
+      - ./.db:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "3306:3306"
