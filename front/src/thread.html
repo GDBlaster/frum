@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sujet - Frum</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css" />
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="navbar-inner">
+    <a class="logo" href="index.html"><div class="logo-icon">F</div>Frum</a>
+    <div class="nav-links">
+      <a href="index.html" class="nav-link">Accueil</a>
+      <a href="index.html" class="nav-link active">Catégories</a>
+    </div>
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input type="text" placeholder="Rechercher un sujet…" />
+    </div>
+    <a href="login.html" class="btn btn-ghost">Connexion</a>
+    <a href="register.html" class="btn btn-primary">S'inscrire</a>
+  </div>
+</nav>
+
+<div class="container layout">
+  <div>
+    <div class="breadcrumb">
+      <a href="index.html">Accueil</a> <span>›</span> <a href="category.html?id=2">Réseaux & Infra</a> <span>›</span> <span>Sujet #101</span>
+    </div>
+
+    <div class="page-header">
+      <h1 style="font-size:17px">Configuration OPNsense avec VLAN tagging — problème de trunk</h1>
+      <p>par <strong class="text-text">netmaster77</strong> · 16 mars 2026 · <span class="tag">OPNsense</span></p>
+    </div>
+
+    <div class="card mb-4" id="posts-list">
+      <div class="post-item" data-post-id="1">
+        <div class="post-author">
+          <div class="avatar avatar-lg bg-sys">NM</div>
+          <div class="name">netmaster77</div>
+          <div class="role role-member">Membre</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header-line">
+            <span class="post-date">16 mars 2026 · 11:03</span>
+            <span class="text-sm font-bold text-muted">#1</span>
+          </div>
+          <div class="post-text">
+            <p>Bonjour à tous, je me bats depuis hier soir avec OPNsense pour faire du VLAN tagging sur une interface trunk...</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="post-item" data-post-id="2">
+        <div class="post-author">
+          <div class="avatar avatar-lg av-admin">JD</div>
+          <div class="name">john_doe</div>
+          <div class="role role-admin">Admin</div>
+        </div>
+        <div class="post-content">
+          <div class="post-header-line">
+            <span class="post-date">16 mars 2026 · 11:28</span>
+            <span class="text-sm font-bold text-muted">#2</span>
+          </div>
+          <div class="post-text">
+            <p>Salut ! Quelques vérifications à faire côté OPNsense : as-tu bien activé les interfaces VLAN ?</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-body" style="background: #fafbff;">
+        <h3 class="font-bold text-sm mb-4">✏️ Répondre à ce sujet</h3>
+        <form id="form-reply">
+          <div class="form-group">
+            <textarea id="reply-content" name="reply_content" class="form-control" placeholder="Écrivez votre réponse… Markdown supporté." required></textarea>
+          </div>
+          <div style="display: flex; justify-content: flex-end; gap: 8px;">
+            <button type="button" class="btn btn-ghost">Aperçu</button>
+            <button type="submit" class="btn btn-primary">Publier la réponse</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="card mb-4" id="moderators-list">
+      <div class="card-header"><h2>🛡️ Modérateurs</h2></div>
+      <a href="#" class="sidebar-item">
+        <div class="avatar av-admin">JD</div>
+        <div class="info">john_doe<span><span class="online"></span>Admin</span></div>
+      </a>
+      <a href="#" class="sidebar-item">
+        <div class="avatar av-mod">SK</div>
+        <div class="info">sec_knight<span>Modérateur</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
