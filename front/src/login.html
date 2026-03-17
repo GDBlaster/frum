@@ -1,26 +1,164 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
-  <meta charset="UTF-8"><title>Connexion - Frum</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="./css/style.css" />
-</head>
-<body style="display:flex; align-items:center; justify-content:center; min-height:100vh;">
-<div class="card" style="width: 100%; max-width: 400px;">
-  <div class="card-header"><h2 style="text-align:center; width:100%;">Connexion</h2></div>
-  <div class="card-body">
-    <form id="form-login" action="index.html">
-      <div class="form-group">
-        <label class="form-label" for="login-email">Email</label>
-        <input type="email" id="login-email" name="email" class="form-control" required>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Connexion - Frum</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
+  <body
+    style="
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    "
+  >
+    <div class="card" style="width: 100%; max-width: 400px">
+      <!-- ← MANQUAIT -->
+
+      <div
+        class="card-header"
+        style="display: flex; align-items: center; position: relative"
+      >
+        <button
+          type="button"
+          onclick="window.location.href = '/'"
+          title="Retour à l'accueil"
+          style="
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 6px 8px;
+            border-radius: 6px;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            transition: background 0.18s;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 1;
+          "
+          onmouseover="this.style.background = 'rgba(0,0,0,0.07)'"
+          onmouseout="this.style.background = 'none'"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M19 12H5" />
+            <path d="M12 19l-7-7 7-7" />
+          </svg>
+        </button>
+
+        <h2
+          style="
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            margin: 0;
+            pointer-events: none;
+          "
+        >
+          Connexion
+        </h2>
       </div>
-      <div class="form-group">
-        <label class="form-label" for="login-password">Mot de passe</label>
-        <input type="password" id="login-password" name="password" class="form-control" required>
+
+      <div class="card-body">
+        <form id="form-login">
+          <div class="form-group">
+            <label class="form-label" for="login-username">Username</label>
+            <input
+              type="text"
+              id="login-username"
+              name="username"
+              class="form-control"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="login-password">Mot de passe</label>
+            <input
+              type="password"
+              id="login-password"
+              name="password"
+              class="form-control"
+              required
+            />
+          </div>
+          <button
+            type="button"
+            onclick="handleLogin()"
+            class="btn btn-primary btn-block"
+          >
+            Se connecter
+          </button>
+          <button
+            type="button"
+            onclick="handleRegister()"
+            class="btn btn-secondary btn-block"
+            style="margin-top: 10px"
+          >
+            S'inscrire
+          </button>
+        </form>
       </div>
-      <button type="submit" class="btn btn-primary btn-block">Se connecter</button>
-    </form>
-  </div>
-</div>
-</body>
+    </div>
+    <!-- ← fermeture de .card -->
+
+    <script>
+      function handleLogin() {
+        const usernameSaisi = document.getElementById("login-username").value;
+        const passwordSaisi = document.getElementById("login-password").value;
+        fetch("http://localhost:5000/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: usernameSaisi,
+            password: passwordSaisi,
+          }),
+        })
+          .then((r) => r.json())
+          .then((d) => {
+            if (d.error) alert("Erreur : " + d.error);
+            else if (d.token) {
+              document.cookie = "session_token=" + d.token + "; path=/;";
+              window.location.href = "index.html";
+            }
+          })
+          .catch(() => alert("Impossible de contacter le serveur."));
+      }
+
+      function handleRegister() {
+        const usernameSaisi = document.getElementById("login-username").value;
+        const passwordSaisi = document.getElementById("login-password").value;
+        fetch("http://localhost:5000/register", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            username: usernameSaisi,
+            password: passwordSaisi,
+          }),
+        })
+          .then((r) => r.json())
+          .then((d) => {
+            if (d.error) alert("Erreur : " + d.error);
+            else if (d.token) {
+              document.cookie = "session_token=" + d.token + "; path=/;";
+              window.location.href = "index.html";
+            }
+          })
+          .catch(() => alert("Impossible de contacter le serveur."));
+      }
+    </script>
+  </body>
 </html>
