@@ -1,111 +1,131 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Accueil - Frum</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./css/style.css" />
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="navbar-inner">
-        <a class="logo" href="index.html"><div class="logo-icon">F</div>Frum</a>
-        <div class="nav-links">
-            <a href="index.html" class="nav-link active">Accueil</a>
-            <a href="index.html" class="nav-link">Catégories</a>
-        </div>
-        <div class="search-wrap">
-            <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Rechercher un sujet…" />
-        </div>
-        <a href="login.html" class="btn btn-ghost">Connexion</a>
-        <a href="register.html" class="btn btn-primary">S'inscrire</a>
-    </div>
-</nav>
-
-<div class="container layout">
-    <div>
-        <div class="page-header">
-            <h1>Bienvenue sur Frum</h1>
-            <p>Rejoignez la discussion</p>
-        </div>
-
-        <div class="card mb-5" id="categories-list">
-            <div class="card-header"><h2>📂 Catégories</h2></div>
-            <a href="category.html?id=1" class="category-item" data-category-id="1">
-                <div class="cat-icon bg-sec">🔐</div>
-                <div class="cat-info">
-                    <div class="cat-name">Cybersécurité</div>
-                    <div class="cat-desc">Pentest, CTF, hardening, vulnérabilités et actualités sécu</div>
-                </div>
-                <div class="cat-stats"><strong>342</strong> sujets</div>
+    <nav class="navbar">
+        <div class="navbar-inner">
+            <a class="logo" href="index.html">
+                <div class="logo-icon">F</div>Frum
             </a>
-            <a href="category.html?id=2" class="category-item" data-category-id="2">
-                <div class="cat-icon bg-net">🌐</div>
-                <div class="cat-info">
-                    <div class="cat-name">Réseaux & Infrastructure</div>
-                    <div class="cat-desc">Firewalls, VLANs, routage, monitoring et administration réseau</div>
-                </div>
-                <div class="cat-stats"><strong>218</strong> sujets</div>
-            </a>
-            <a href="category.html?id=3" class="category-item" data-category-id="3">
-                <div class="cat-icon bg-sys">🐧</div>
-                <div class="cat-info">
-                    <div class="cat-name">Linux & Systèmes</div>
-                    <div class="cat-desc">Administration Linux, Windows Server, AD, scripting</div>
-                </div>
-                <div class="cat-stats"><strong>495</strong> sujets</div>
-            </a>
-        </div>
-
-        <div class="card" id="recent-threads-list">
-            <div class="card-header">
-                <h2>🕒 Dernières discussions</h2>
-                <a href="category.html?id=all" class="text-sm font-bold" style="color:var(--primary)">Voir tout →</a>
+            <div class="search-wrap">
+                <span class="search-icon">🔍</span>
+                <input type="text" placeholder="Rechercher un sujet…" />
             </div>
-            <a href="thread.html?id=101" class="thread-item" data-thread-id="101">
-                <div class="thread-status open"></div>
-                <div class="thread-body">
-                    <div class="thread-title">Configuration OPNsense avec VLAN tagging — problème de trunk</div>
-                    <div class="thread-meta">par netmaster77 dans Réseaux & Infra · il y a 23 min</div>
-                    <div class="thread-tags"><span class="tag">OPNsense</span><span class="tag hot">🔥 Actif</span></div>
-                </div>
-                <div class="thread-counts"><strong>14</strong>réponses</div>
-            </a>
-            <a href="thread.html?id=102" class="thread-item" data-thread-id="102">
-                <div class="thread-status"></div>
-                <div class="thread-body">
-                    <div class="thread-title">[Résolu] Playbook Ansible qui échoue sur les hôtes Windows</div>
-                    <div class="thread-meta">par ops_guy dans Linux & Systèmes · il y a 3h</div>
-                    <div class="thread-tags"><span class="tag resolved">✓ Résolu</span><span class="tag">Ansible</span></div>
-                </div>
-                <div class="thread-counts"><strong>5</strong>réponses</div>
-            </a>
+            <a href="login.html" class="btn btn-ghost">Connexion</a>
+            <a href="register.html" class="btn btn-primary">S'inscrire</a>
         </div>
-    </div>
+    </nav>
 
-    <div>
-        <div class="card mb-4" id="moderators-list">
-            <div class="card-header"><h2>🛡️ Modérateurs</h2></div>
-            <a href="#" class="sidebar-item">
-                <div class="avatar av-admin">JD</div>
-                <div class="info">john_doe<span><span class="online"></span>Admin</span></div>
-            </a>
-            <a href="#" class="sidebar-item">
-                <div class="avatar av-mod">SK</div>
-                <div class="info">sec_knight<span>Modérateur</span></div>
-            </a>
+    <div class="container layout">
+        <div>
+            <div class="page-header">
+                <h1>Bienvenue sur Frum</h1>
+                <p>Rejoignez la discussion</p>
+            </div>
+
+            <div class="card mb-5" id="categories-list">
+                <div class="card-header">
+                    <h2>📂 Catégories</h2>
+                </div>
+                <a href="category.html?id=1" class="category-item" data-category-id="1">
+                    <div class="cat-icon bg-sec">🔐</div>
+                    <div class="cat-info">
+                        <div class="cat-name">Cybersécurité</div>
+                        <div class="cat-desc">Pentest, CTF, hardening, vulnérabilités et actualités sécu</div>
+                    </div>
+                    <div class="cat-stats"><strong>342</strong> sujets</div>
+                </a>
+                <a href="category.html?id=2" class="category-item" data-category-id="2">
+                    <div class="cat-icon bg-net">🌐</div>
+                    <div class="cat-info">
+                        <div class="cat-name">Réseaux & Infrastructure</div>
+                        <div class="cat-desc">Firewalls, VLANs, routage, monitoring et administration réseau</div>
+                    </div>
+                    <div class="cat-stats"><strong>218</strong> sujets</div>
+                </a>
+                <a href="category.html?id=3" class="category-item" data-category-id="3">
+                    <div class="cat-icon bg-sys">🐧</div>
+                    <div class="cat-info">
+                        <div class="cat-name">Linux & Systèmes</div>
+                        <div class="cat-desc">Administration Linux, Windows Server, AD, scripting</div>
+                    </div>
+                    <div class="cat-stats"><strong>495</strong> sujets</div>
+                </a>
+            </div>
+
+            <div class="card" id="recent-threads-list">
+                <div class="card-header">
+                    <h2>🕒 Dernières discussions</h2>
+                    <a href="category.html?id=all" class="text-sm font-bold" style="color:var(--primary)">Voir tout
+                        →</a>
+                </div>
+                <a href="thread.html?id=101" class="thread-item" data-thread-id="101">
+                    <div class="thread-status open"></div>
+                    <div class="thread-body">
+                        <div class="thread-title">Configuration OPNsense avec VLAN tagging — problème de trunk</div>
+                        <div class="thread-meta">par Malo_Berger dans Réseaux & Infra · il y a 23 min</div>
+                        <div class="thread-tags"><span class="tag">OPNsense</span><span class="tag hot">🔥 Actif</span>
+                        </div>
+                    </div>
+                    <div class="thread-counts"><strong>14</strong>réponses</div>
+                </a>
+                <a href="thread.html?id=102" class="thread-item" data-thread-id="102">
+                    <div class="thread-status"></div>
+                    <div class="thread-body">
+                        <div class="thread-title">[Résolu] Playbook Ansible qui échoue sur les hôtes Windows</div>
+                        <div class="thread-meta">par ops_guy dans Linux & Systèmes · il y a 3h</div>
+                        <div class="thread-tags"><span class="tag resolved">✓ Résolu</span><span
+                                class="tag">Ansible</span></div>
+                    </div>
+                    <div class="thread-counts"><strong>5</strong>réponses</div>
+                </a>
+            </div>
         </div>
-        <div class="card mb-4">
-            <div class="card-header"><h2>📌 Sujets épinglés</h2></div>
-            <a href="thread.html?id=1" class="sidebar-item">
-                <div class="info"><div class="font-bold">Règles du forum</div><span>Par admin · Pinned</span></div>
-            </a>
+
+        <div>
+            <div class="card mb-4" id="moderators-list">
+                <div class="card-header">
+                    <h2>🛡️ Modérateurs</h2>
+                </div>
+                <a href="#" class="sidebar-item">
+                    <div class="avatar av-admin">PB</div>
+                    <div class="info">Paul_Burgniard<span><span class="online"></span>Admin</span></div>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <div class="avatar av-mod">QA</div>
+                    <div class="info">Quentin_Ambrozic<span>Modérateur</span></div>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <div class="avatar av-mod">MB</div>
+                    <div class="info">Malo_Berger<span>Modérateur</span></div>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <div class="avatar av-mod">LL</div>
+                    <div class="info">Lualan_Leyman<span>Modérateur</span></div>
+                </a>
+
+            </div>
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h2>📌 Sujets épinglés</h2>
+                </div>
+                <a href="thread.html?id=1" class="sidebar-item">
+                    <div class="info">
+                        <div class="font-bold">Règles du forum</div><span>Par admin · Pinned</span>
+                    </div>
+                </a>
+            </div>
         </div>
-    </div>
-</div>
 
 </body>
+
 </html>
