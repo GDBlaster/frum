@@ -1,4 +1,4 @@
-name: Code Formatting Check
+name: Code Check and deployment
 
 on:
   pull_request:
@@ -31,10 +31,10 @@ jobs:
       - name: Install python
         uses: actions/setup-python@v6
         with:
-          python-version: '3.14'
+          python-version: "3.14"
 
       - name: Install linting tools
-        run : pip install black ruff
+        run: pip install black ruff
 
       - name: Formating
         run: black . --check
