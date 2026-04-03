@@ -1,0 +1,14 @@
+name: Gitleaks
+
+on:
+  push:
+
+jobs:
+  gitleaks:
+    name: Gitleaks
+    runs-on: ubuntu-26.04
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: gitleaks/gitleaks@v2
