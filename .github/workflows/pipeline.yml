@@ -85,3 +85,16 @@ jobs:
       - uses: pypa/gh-action-pip-audit@v1.1.0
         with:
           inputs: back/requirements.txt
+
+  Betterleaks:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/betterleaks/betterleaks:latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+
+      - name: Run Betterleaks
+        run: betterleaks git .
