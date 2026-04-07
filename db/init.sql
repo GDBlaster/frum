@@ -1,6 +1,6 @@
 -- 1. Create Tables
 CREATE TABLE IF NOT EXISTS users (
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   username VARCHAR(255) UNIQUE,
   passwordHash VARCHAR(255),
   salt VARCHAR(255),
@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 CREATE TABLE IF NOT EXISTS posts (
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
   title VARCHAR(255),
   content TEXT,
@@ -16,14 +16,14 @@ CREATE TABLE IF NOT EXISTS posts (
 );
 
 CREATE TABLE IF NOT EXISTS sessions (
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   user_id INT,
   token VARCHAR(255),
   expiration DATE
 );
 
 CREATE TABLE IF NOT EXISTS comments (
-  id INT PRIMARY KEY,
+  id INT AUTO_INCREMENT PRIMARY KEY,
   post_id INT,
   user_id INT,
   content VARCHAR(255),
