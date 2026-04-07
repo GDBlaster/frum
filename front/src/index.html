@@ -1,476 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
-<head>
+  <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Frum</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Accueil - Frum</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./css/style.css" />
-</head>
-<body>
+  </head>
 
-<!-- NAVBAR -->
-<nav class="navbar">
-    <div class="navbar-inner">
-        <a class="logo" href="#" onclick="goHome()">
-            <div class="logo-icon">N</div>
-            Frum
+  <body>
+    <nav class="navbar">
+      <div class="navbar-inner">
+        <a class="logo" href="index.html">
+          <div class="logo-icon">F</div>
+          Frum
         </a>
-        <div class="nav-links">
-            <span class="nav-link active" id="nav-home" onclick="goHome()">Accueil</span>
-            <span class="nav-link" onclick="goHome()">Catégories</span>
-            <span class="nav-link" onclick="goHome()">Récents</span>
-        </div>
         <div class="search-wrap">
-            <span class="search-icon">🔍</span>
-            <input type="text" placeholder="Rechercher un sujet…" />
+          <span class="search-icon">🔍</span>
+          <input type="text" placeholder="Rechercher un sujet…" />
         </div>
-        <button class="btn btn-ghost">Connexion</button>
-        <button class="btn btn-primary">S'inscrire</button>
-    </div>
-</nav>
+        <script src="./session.js"></script>
+        <a id="auth-button" href="login.html" class="btn btn-primary"
+          >Connexion / S'inscrire</a
+        >
+      </div>
+    </nav>
 
-<!-- ══════════════════════ PAGE HOME ══════════════════════ -->
-<div id="page-home" class="page active">
-    <div class="container">
-        <div class="layout">
-            <div>
-                <!-- CATEGORIES -->
-                <div class="page-header">
-                    <h1>Bienvenue sur Frum</h1>
-                    <p>Rejoignez la discussion</p>
-                </div>
-
-                <div class="card" style="margin-bottom:20px">
-                    <div class="card-header">
-                        <h2>📂 Catégories</h2>
-                    </div>
-                    <div class="category-item" data-category-id="1" onclick="goCategory('Cybersécurité', '🔐', '#3b5bdb')">
-                        <div class="cat-icon" style="background:#eef2ff">🔐</div>
-                        <div class="cat-info">
-                            <div class="cat-name">Cybersécurité</div>
-                            <div class="cat-desc">Pentest, CTF, hardening, vulnérabilités et actualités sécu</div>
-                        </div>
-                        <div class="cat-stats"><strong>342</strong> sujets<br>1 204 messages</div>
-                    </div>
-                    <div class="category-item" data-category-id="2" onclick="goCategory('Réseaux & Infra', '🌐', '#0ca678')">
-                        <div class="cat-icon" style="background:#e6fcf5">🌐</div>
-                        <div class="cat-info">
-                            <div class="cat-name">Réseaux & Infrastructure</div>
-                            <div class="cat-desc">Firewalls, VLANs, routage, monitoring et administration réseau</div>
-                        </div>
-                        <div class="cat-stats"><strong>218</strong> sujets<br>876 messages</div>
-                    </div>
-                    <div class="category-item" onclick="goCategory('Linux & Systèmes', '🐧', '#e67700')">
-                        <div class="cat-icon" style="background:#fff9db">🐧</div>
-                        <div class="cat-info">
-                            <div class="cat-name">Linux & Systèmes</div>
-                            <div class="cat-desc">Administration Linux, Windows Server, Active Directory, scripting</div>
-                        </div>
-                        <div class="cat-stats"><strong>495</strong> sujets<br>2 140 messages</div>
-                    </div>
-                    <div class="category-item" onclick="goCategory('Développement', '💻', '#7048e8')">
-                        <div class="cat-icon" style="background:#f3f0ff">💻</div>
-                        <div class="cat-info">
-                            <div class="cat-name">Développement</div>
-                            <div class="cat-desc">Web, scripts, outils DevOps, Python, Bash, Ansible et plus</div>
-                        </div>
-                        <div class="cat-stats"><strong>629</strong> sujets<br>3 012 messages</div>
-                    </div>
-                    <div class="category-item" onclick="goCategory('Matériel', '🖥️', '#c92a2a')">
-                        <div class="cat-icon" style="background:#fff5f5">🖥️</div>
-                        <div class="cat-info">
-                            <div class="cat-name">Matériel & Homelab</div>
-                            <div class="cat-desc">Serveurs, NAS, Raspberry Pi, lab perso et hardware</div>
-                        </div>
-                        <div class="cat-stats"><strong>187</strong> sujets<br>743 messages</div>
-                    </div>
-                    <div class="category-item" onclick="goCategory('Actualités', '📰', '#1098ad')">
-                        <div class="cat-icon" style="background:#e3fafc">📰</div>
-                        <div class="cat-info">
-                            <div class="cat-name">Actualités & Veille</div>
-                            <div class="cat-desc">News tech, CVE récents, outils nouveaux, veille sécurité</div>
-                        </div>
-                        <div class="cat-stats"><strong>156</strong> sujets<br>512 messages</div>
-                    </div>
-                </div>
-
-                <!-- RECENT THREADS -->
-                <div class="card">
-                    <div class="card-header">
-                        <h2>🕒 Dernières discussions</h2>
-                        <a style="font-size:12.5px;color:var(--primary);cursor:pointer">Voir tout →</a>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#40c057"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">Configuration OPNsense avec VLAN tagging — problème de trunk</div>
-                            <div class="thread-meta">par <a>netmaster77</a> dans Réseaux & Infra · il y a 23 min</div>
-                            <div class="thread-tags"><span class="tag">OPNsense</span><span class="tag hot">🔥 Actif</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>14</strong>réponses<br>89 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#40c057"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">CVE-2025-3198 — PoC disponible pour Apache HTTP Server</div>
-                            <div class="thread-meta">par <a>sec_watcher</a> dans Actualités · il y a 1h</div>
-                            <div class="thread-tags"><span class="tag hot">🔥 Actif</span><span class="tag">CVE</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>7</strong>réponses<br>241 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#adb5bd"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">[Résolu] Playbook Ansible qui échoue sur les hôtes Windows — winrm refusé</div>
-                            <div class="thread-meta">par <a>ops_guy</a> dans Linux & Systèmes · il y a 3h</div>
-                            <div class="thread-tags"><span class="tag resolved">✓ Résolu</span><span class="tag">Ansible</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>5</strong>réponses<br>132 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#40c057"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">Centreon — supervision NRPE custom pour métriques applicatives</div>
-                            <div class="thread-meta">par <a>monit_pro</a> dans Réseaux & Infra · il y a 5h</div>
-                            <div class="thread-tags"><span class="tag">Centreon</span><span class="tag">NRPE</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>9</strong>réponses<br>178 vues</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SIDEBAR -->
-            <div>
-
-                <div class="card sidebar-card">
-                    <div class="card-header"><h2>👤 Modérateurs</h2></div>
-                    <div class="sidebar-item">
-                        <div class="avatar" style="background:#e7f5ff;color:#1971c2">JD</div>
-                        <div class="info">john_doe<span><span class="online"></span>En ligne · Admin</span></div>
-                        <span style="font-size:11px;color:var(--muted)">3 412 msgs</span>
-                    </div>
-                    <div class="sidebar-item">
-                        <div class="avatar" style="background:#ebfbee;color:#2f9e44">SK</div>
-                        <div class="info">sec_knight<span>Il y a 5 min</span></div>
-                        <span style="font-size:11px;color:var(--muted)">1 876 msgs</span>
-                    </div>
-                    <div class="sidebar-item">
-                        <div class="avatar" style="background:#fff4e6;color:#e67700">NM</div>
-                        <div class="info">netmaster77<span><span class="online"></span>En ligne</span></div>
-                        <span style="font-size:11px;color:var(--muted)">987 msgs</span>
-                    </div>
-                    <div class="sidebar-item">
-                        <div class="avatar" style="background:#f3f0ff;color:#7048e8">RX</div>
-                        <div class="info">r00txploit<span>Il y a 42 min</span></div>
-                        <span style="font-size:11px;color:var(--muted)">654 msgs</span>
-                    </div>
-                </div>
-
-                <div class="card sidebar-card">
-                    <div class="card-header"><h2>📌 Sujets épinglés</h2></div>
-                    <div class="sidebar-item" onclick="goThread()" style="cursor:pointer">
-                        <div>
-                            <div style="font-size:13px;font-weight:600">Règles du forum</div>
-                            <span style="font-size:11.5px;color:var(--muted)">Par admin · Pinned</span>
-                        </div>
-                    </div>
-                    <div class="sidebar-item" onclick="goThread()" style="cursor:pointer">
-                        <div>
-                            <div style="font-size:13px;font-weight:600">Ressources CTF 2025</div>
-                            <span style="font-size:11.5px;color:var(--muted)">Par sec_knight</span>
-                        </div>
-                    </div>
-                    <div class="sidebar-item" onclick="goThread()" style="cursor:pointer">
-                        <div>
-                            <div style="font-size:13px;font-weight:600">Guide débutant sécu</div>
-                            <span style="font-size:11.5px;color:var(--muted)">Par john_doe</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <div class="container layout">
+      <div>
+        <div class="page-header">
+          <h1>Bienvenue sur Frum</h1>
+          <p>Rejoignez la discussion</p>
         </div>
-    </div>
-</div>
 
-<!-- ══════════════════════ PAGE CATEGORY ══════════════════════ -->
-<div id="page-category" class="page">
-    <div class="container">
-        <div class="layout">
-            <div>
-                <div class="breadcrumb">
-                    <a onclick="goHome()">Accueil</a>
-                    <span>›</span>
-                    <span id="cat-title-bc">Catégorie</span>
-                </div>
-                <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
-                    <div>
-                        <h1 id="cat-title">Catégorie</h1>
-                        <p>Parcourez et participez aux discussions</p>
-                    </div>
-                    <button class="btn btn-primary" onclick="goThread()">✏️ Nouveau sujet</button>
-                </div>
-
-                <div class="toolbar">
-                    <div class="toolbar-left">
-                        <button class="filter-btn active">Tous</button>
-                        <button class="filter-btn">Actifs</button>
-                        <button class="filter-btn">Non résolus</button>
-                        <button class="filter-btn">Résolus</button>
-                    </div>
-                    <span style="font-size:12.5px;color:var(--muted)">218 sujets</span>
-                </div>
-
-                <div class="card">
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#40c057"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">Configuration OPNsense avec VLAN tagging — problème de trunk</div>
-                            <div class="thread-meta">par <a>netmaster77</a> · 16 mars 2026, 11:03</div>
-                            <div class="thread-tags"><span class="tag">OPNsense</span><span class="tag">VLAN</span><span class="tag hot">🔥 Actif</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>14</strong>réponses<br>89 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#40c057"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">BGP filtering best practices — préfixes entrants</div>
-                            <div class="thread-meta">par <a>bgp_nerd</a> · 15 mars 2026, 19:47</div>
-                            <div class="thread-tags"><span class="tag">BGP</span><span class="tag">Routage</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>3</strong>réponses<br>56 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#adb5bd"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">Centreon — supervision NRPE custom pour métriques applicatives</div>
-                            <div class="thread-meta">par <a>monit_pro</a> · 15 mars 2026, 08:22</div>
-                            <div class="thread-tags"><span class="tag resolved">✓ Résolu</span><span class="tag">Centreon</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>9</strong>réponses<br>178 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#adb5bd"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">Mise en place d'un IDS Suricata en mode inline</div>
-                            <div class="thread-meta">par <a>ids_fan</a> · 14 mars 2026, 14:11</div>
-                            <div class="thread-tags"><span class="tag">Suricata</span><span class="tag">IDS</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>6</strong>réponses<br>102 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#40c057"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">Problème MTU sur tunnel WireGuard entre deux sites</div>
-                            <div class="thread-meta">par <a>wg_user</a> · 13 mars 2026, 21:55</div>
-                            <div class="thread-tags"><span class="tag">WireGuard</span><span class="tag">VPN</span><span class="tag hot">🔥 Actif</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>11</strong>réponses<br>203 vues</div>
-                    </div>
-                    <div class="thread-item" onclick="goThread()">
-                        <div class="thread-status" style="background:#adb5bd"></div>
-                        <div class="thread-body">
-                            <div class="thread-title">Span port Cisco — capture Wireshark en production</div>
-                            <div class="thread-meta">par <a>packet_head</a> · 12 mars 2026, 09:30</div>
-                            <div class="thread-tags"><span class="tag">Cisco</span><span class="tag">Wireshark</span></div>
-                        </div>
-                        <div class="thread-counts"><strong>2</strong>réponses<br>47 vues</div>
-                    </div>
-                </div>
-                <div class="pagination">
-                    <button class="page-btn">‹</button>
-                    <button class="page-btn active">1</button>
-                    <button class="page-btn">2</button>
-                    <button class="page-btn">3</button>
-                    <button class="page-btn">…</button>
-                    <button class="page-btn">12</button>
-                    <button class="page-btn">›</button>
-                </div>
+        <div class="card mb-5" id="categories-list">
+          <div class="card-header">
+            <h2>📂 Catégories</h2>
+          </div>
+          <a
+            href="category.html?id=1"
+            class="category-item"
+            data-category-id="1"
+          >
+            <div class="cat-icon bg-sec">🔐</div>
+            <div class="cat-info">
+              <div class="cat-name">Cybersécurité</div>
+              <div class="cat-desc">
+                Pentest, CTF, hardening, vulnérabilités et actualités sécu
+              </div>
             </div>
-
-            <!-- sidebar -->
-            <div>
-                <div class="card sidebar-card">
-                    <div class="card-header"><h2>📊 Cette catégorie</h2></div>
-                    <div class="stat-grid">
-                        <div class="stat-cell"><div class="val">218</div><div class="lbl">Sujets</div></div>
-                        <div class="stat-cell"><div class="val">876</div><div class="lbl">Messages</div></div>
-                    </div>
-                </div>
-                <div class="card sidebar-card">
-                    <div class="card-header"><h2>🏷️ Tags populaires</h2></div>
-                    <div style="padding:12px 16px;display:flex;flex-wrap:wrap;gap:6px">
-                        <span class="tag">OPNsense</span><span class="tag">VLAN</span>
-                        <span class="tag">WireGuard</span><span class="tag">Centreon</span>
-                        <span class="tag">BGP</span><span class="tag">Cisco</span>
-                        <span class="tag">Suricata</span><span class="tag">VPN</span>
-                        <span class="tag">NRPE</span><span class="tag">IDS</span>
-                    </div>
-                </div>
+            <div class="cat-stats"><strong>342</strong> sujets</div>
+          </a>
+          <a
+            href="category.html?id=2"
+            class="category-item"
+            data-category-id="2"
+          >
+            <div class="cat-icon bg-net">🌐</div>
+            <div class="cat-info">
+              <div class="cat-name">Réseaux & Infrastructure</div>
+              <div class="cat-desc">
+                Firewalls, VLANs, routage, monitoring et administration réseau
+              </div>
             </div>
+            <div class="cat-stats"><strong>218</strong> sujets</div>
+          </a>
+          <a
+            href="category.html?id=3"
+            class="category-item"
+            data-category-id="3"
+          >
+            <div class="cat-icon bg-sys">🐧</div>
+            <div class="cat-info">
+              <div class="cat-name">Linux & Systèmes</div>
+              <div class="cat-desc">
+                Administration Linux, Windows Server, AD, scripting
+              </div>
+            </div>
+            <div class="cat-stats"><strong>495</strong> sujets</div>
+          </a>
         </div>
-    </div>
-</div>
 
-<!-- ══════════════════════ PAGE THREAD ══════════════════════ -->
-<div id="page-thread" class="page">
-    <div class="container">
-        <div class="layout">
-            <div>
-                <div class="breadcrumb">
-                    <a onclick="goHome()">Accueil</a>
-                    <span>›</span>
-                    <a onclick="goCategory('Réseaux & Infra', '🌐', '#0ca678')">Réseaux & Infra</a>
-                    <span>›</span>
-                    <span>Configuration OPNsense avec VLAN tagging</span>
-                </div>
-                <div class="page-header" style="display:flex;justify-content:space-between;align-items:flex-start">
-                    <div>
-                        <h1 style="font-size:17px">Configuration OPNsense avec VLAN tagging — problème de trunk</h1>
-                        <p>par <strong>netmaster77</strong> · 16 mars 2026 · <span class="tag">OPNsense</span> <span class="tag hot">🔥 Actif</span></p>
-                    </div>
-                </div>
-
-                <div class="card" style="margin-bottom:16px">
-                    <!-- POST 1 -->
-                    <div class="post-item">
-                        <div class="post-author">
-                            <div class="avatar" style="background:#fff4e6;color:#e67700;width:48px;height:48px;font-size:16px;margin:0 auto">NM</div>
-                            <div class="name">netmaster77</div>
-                            <div class="role role-member">Membre</div>
-                            <div style="font-size:11px;color:var(--muted);margin-top:4px">42 msgs</div>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-header-line">
-                                <span class="post-date">16 mars 2026 · 11:03</span>
-                                <span class="post-num">#1</span>
-                            </div>
-                            <div class="post-text">
-                                <p>Bonjour à tous, je me bats depuis hier soir avec OPNsense pour faire du VLAN tagging sur une interface trunk. Mon setup : OPNsense 24.7, switch HP Aruba, interface em1 en mode trunk avec les VLANs 10, 20, 30.</p>
-                                <p>Le problème : le trafic VLAN 10 (LAN principal) passe bien, mais les VLANs 20 et 30 ne voient pas le gateway. J'ai bien créé les interfaces VLAN dans OPNsense, assigné les IPs, activé DHCP sur chacune. Mais depuis un host sur VLAN 20, impossible de pinger le gateway OPNsense.</p>
-                                <p>Est-ce que quelqu'un a déjà eu ce problème ? J'ai l'impression que c'est lié au port du switch qui n'accepte pas les tags, mais la config Aruba me semble correcte.</p>
-                            </div>
-                            <div class="post-actions">
-                                <button class="post-action-btn">👍 4</button>
-                                <button class="post-action-btn">↩ Citer</button>
-                                <button class="post-action-btn">⚑ Signaler</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- POST 2 -->
-                    <div class="post-item">
-                        <div class="post-author">
-                            <div class="avatar" style="background:#e7f5ff;color:#1971c2;width:48px;height:48px;font-size:16px;margin:0 auto">JD</div>
-                            <div class="name">john_doe</div>
-                            <div class="role role-admin">Admin</div>
-                            <div style="font-size:11px;color:var(--muted);margin-top:4px">3 412 msgs</div>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-header-line">
-                                <span class="post-date">16 mars 2026 · 11:28</span>
-                                <span class="post-num">#2</span>
-                            </div>
-                            <div class="post-text">
-                                <p>Salut ! Quelques vérifications à faire côté OPNsense : est-ce que tu as bien <strong>activé les interfaces VLAN</strong> après les avoir créées ? Il faut aller dans Interfaces → Assignments puis activer chacune.</p>
-                                <p>Aussi, sur Aruba, vérifie que le port trunk a bien les VLANs 20 et 30 en mode "tagged" et non "untagged". La commande <code style="background:#f1f3f6;padding:1px 5px;border-radius:3px;font-size:12.5px">show vlan port [PORT] detail</code> te donnera l'état exact.</p>
-                            </div>
-                            <div class="post-actions">
-                                <button class="post-action-btn">👍 6</button>
-                                <button class="post-action-btn">↩ Citer</button>
-                                <button class="post-action-btn">⚑ Signaler</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- POST 3 -->
-                    <div class="post-item">
-                        <div class="post-author">
-                            <div class="avatar" style="background:#ebfbee;color:#2f9e44;width:48px;height:48px;font-size:16px;margin:0 auto">SK</div>
-                            <div class="name">sec_knight</div>
-                            <div class="role role-mod">Modérateur</div>
-                            <div style="font-size:11px;color:var(--muted);margin-top:4px">1 876 msgs</div>
-                        </div>
-                        <div class="post-content">
-                            <div class="post-header-line">
-                                <span class="post-date">16 mars 2026 · 11:45</span>
-                                <span class="post-num">#3</span>
-                            </div>
-                            <div class="post-text">
-                                <p>En complément de john_doe, n'oublie pas de vérifier les règles firewall dans OPNsense. Par défaut, les nouvelles interfaces n'ont <strong>aucune règle</strong> donc tout est bloqué — même le ping vers le gateway. Il faut au minimum créer une règle "allow any" sur les interfaces VLAN 20 et 30 pour débuter les tests.</p>
-                            </div>
-                            <div class="post-actions">
-                                <button class="post-action-btn">👍 9</button>
-                                <button class="post-action-btn">↩ Citer</button>
-                                <button class="post-action-btn">⚑ Signaler</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- REPLY BOX -->
-                <div class="card">
-                    <div class="reply-box">
-                        <h3>✏️ Répondre à ce sujet</h3>
-                        <textarea placeholder="Écrivez votre réponse… Markdown supporté."></textarea>
-                        <div class="reply-actions">
-                            <button class="btn btn-ghost">Aperçu</button>
-                            <button class="btn btn-primary">Publier la réponse</button>
-                        </div>
-                    </div>
-                </div>
+        <div class="card" id="recent-threads-list">
+          <div class="card-header">
+            <h2>🕒 Dernières discussions</h2>
+            <a
+              href="category.html?id=all"
+              class="text-sm font-bold"
+              style="color: var(--primary)"
+              >Voir tout →</a
+            >
+          </div>
+          <a href="thread.html?id=101" class="thread-item" data-thread-id="101">
+            <div class="thread-status open"></div>
+            <div class="thread-body">
+              <div class="thread-title">
+                Configuration OPNsense avec VLAN tagging — problème de trunk
+              </div>
+              <div class="thread-meta">
+                par Malo_Berger dans Réseaux & Infra · il y a 23 min
+              </div>
+              <div class="thread-tags">
+                <span class="tag">OPNsense</span
+                ><span class="tag hot">🔥 Actif</span>
+              </div>
             </div>
-
-            <!-- sidebar -->
-            <div>
-                <div class="card sidebar-card">
-                    <div class="card-header"><h2>ℹ️ Infos du sujet</h2></div>
-                    <div style="padding:14px 16px;font-size:13px;display:flex;flex-direction:column;gap:8px">
-                        <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Statut</span><span style="color:#40c057;font-weight:600">● Ouvert</span></div>
-                        <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Réponses</span><strong>14</strong></div>
-                        <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Vues</span><strong>89</strong></div>
-                        <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Participants</span><strong>6</strong></div>
-                        <div style="display:flex;justify-content:space-between"><span style="color:var(--muted)">Créé</span><strong>16 mars 2026</strong></div>
-                    </div>
-                </div>
-                <div class="card sidebar-card">
-                    <div class="card-header"><h2>🔗 Sujets similaires</h2></div>
-                    <div class="sidebar-item" onclick="goThread()" style="cursor:pointer">
-                        <div><div style="font-size:13px;font-weight:600">VLAN inter-routing OPNsense</div><span style="font-size:11.5px;color:var(--muted)">8 réponses</span></div>
-                    </div>
-                    <div class="sidebar-item" onclick="goThread()" style="cursor:pointer">
-                        <div><div style="font-size:13px;font-weight:600">Trunk 802.1Q sur Cisco</div><span style="font-size:11.5px;color:var(--muted)">5 réponses</span></div>
-                    </div>
-                    <div class="sidebar-item" onclick="goThread()" style="cursor:pointer">
-                        <div><div style="font-size:13px;font-weight:600">Firewall rules best practices</div><span style="font-size:11.5px;color:var(--muted)">12 réponses</span></div>
-                    </div>
-                </div>
+            <div class="thread-counts"><strong>14</strong>réponses</div>
+          </a>
+          <a href="thread.html?id=102" class="thread-item" data-thread-id="102">
+            <div class="thread-status"></div>
+            <div class="thread-body">
+              <div class="thread-title">
+                [Résolu] Playbook Ansible qui échoue sur les hôtes Windows
+              </div>
+              <div class="thread-meta">
+                par ops_guy dans Linux & Systèmes · il y a 3h
+              </div>
+              <div class="thread-tags">
+                <span class="tag resolved">✓ Résolu</span
+                ><span class="tag">Ansible</span>
+              </div>
             </div>
+            <div class="thread-counts"><strong>5</strong>réponses</div>
+          </a>
         </div>
+      </div>
+
+      <div>
+        <div class="card mb-4" id="moderators-list">
+          <div class="card-header">
+            <h2>🛡️ Modérateurs</h2>
+          </div>
+          <a href="#" class="sidebar-item">
+            <div class="avatar av-admin">PB</div>
+            <div class="info">
+              Paul_Burgniard<span><span class="online"></span>Admin</span>
+            </div>
+          </a>
+          <a href="#" class="sidebar-item">
+            <div class="avatar av-mod">QA</div>
+            <div class="info">Quentin_Ambrozic<span>Modérateur</span></div>
+          </a>
+          <a href="#" class="sidebar-item">
+            <div class="avatar av-mod">MB</div>
+            <div class="info">Malo_Berger<span>Modérateur</span></div>
+          </a>
+        </div>
+        <div class="card mb-4">
+          <div class="card-header">
+            <h2>📌 Sujets épinglés</h2>
+          </div>
+          <a href="thread.html?id=1" class="sidebar-item">
+            <div class="info">
+              <div class="font-bold">Règles du forum</div>
+              <span>Par admin · Pinned</span>
+            </div>
+          </a>
+        </div>
+      </div>
     </div>
-</div>
-
-<script>
-    function showPage(id) {
-        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        window.scrollTo(0, 0);
-    }
-    function goHome() { showPage('page-home'); }
-    function goCategory(name, icon, color) {
-        document.getElementById('cat-title').textContent = (icon || '') + ' ' + (name || 'Catégorie');
-        document.getElementById('cat-title-bc').textContent = name || 'Catégorie';
-        showPage('page-category');
-    }
-    function goThread() { showPage('page-thread'); }
-
-    document.querySelectorAll('.filter-btn').forEach(btn => {
-        btn.addEventListener('click', function() {
-            this.closest('.toolbar').querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-        });
-    });
-</script>
-</body>
+  </body>
 </html>

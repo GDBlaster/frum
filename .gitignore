@@ -5,3 +5,8 @@ result-*
 # Ignore automatically generated direnv output
 .direnv
 /.idea/
+
+# Ignore DB
+.db/
+db.env
+.venv

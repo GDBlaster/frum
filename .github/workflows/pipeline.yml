@@ -1,0 +1,43 @@
+name: Code Check and deployment
+
+on:
+  pull_request:
+
+jobs:
+  Prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install node
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+
+      - name: Install Prettier
+        run: npm install --save-dev prettier
+
+      - name: Prettier Check
+        run: npx prettier . --check
+
+  Python-Lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: Install linting tools
+        run: pip install black ruff
+
+      - name: Formating
+        run: black . --check
+
+      - name: Lint
+        run: ruff check .
