@@ -2,13 +2,16 @@ name: Gitleaks
 
 on:
   push:
+  pull_request:
 
 jobs:
   gitleaks:
-    name: Gitleaks
-    runs-on: ubuntu-26.04
-
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0 # Important : récupérer tout l'historique
 
-      - uses: gitleaks/gitleaks@v2
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
