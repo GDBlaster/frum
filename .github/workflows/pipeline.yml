@@ -51,4 +51,4 @@ jobs:
     steps:
       - uses: pypa/gh-action-pip-audit@v1.1.0
         with:
-          inputs: requirements.txt
+          inputs: back/requirements.txt
