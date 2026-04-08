@@ -55,7 +55,17 @@ jobs:
         uses: docker/setup-buildx-action@v4
 
       - name: Build Docker Image
-        run: docker build -t frum-front:${{ github.sha }} ./front
+        run: |
+          docker build -t frum-front:${{ github.sha }} ./front
+          docker save "frum-front:${{ github.sha }}" front.tar
+
+      - name: upload image artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: "front-image-${{github.sha}}"
+          path: front.tar
+          retention-days: 1
+          overwrite: true
 
   docker-build-back:
     runs-on: ubuntu-latest
@@ -70,29 +80,55 @@ jobs:
         uses: docker/setup-buildx-action@v4
 
       - name: Build Docker Image
-        run: docker build -t frum-back:${{ github.sha }} ./back
+        run: |
+          docker build -t frum-back:${{ github.sha }} ./back
+          docker save "frum-back:${{ github.sha }}" back.tar
+
+      - name: upload image artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: "back-image-${{github.sha}}"
+          path: back.tar
+          retention-days: 1
+          overwrite: true
 
   docker-scan-front:
+    needs: docker-build-front
     runs-on: ubuntu-latest
     steps:
+      - name: import artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: "front-image-${{github.sha}}"
+
+      - name: import image
+        run: docker load -i front.tar
 
       - name: Scan Docker image for vulnerabilities
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "myapp:${{ github.sha }}"
+          image-ref: "frum-front:${{ github.sha }}"
           format: "table"
           exit-code: 1
           ignore-unfixed: true
           severity: "CRITICAL,HIGH"
 
   docker-scan-back:
+    needs: docker-build-back
     runs-on: ubuntu-latest
     steps:
+      - name: import artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: "front-image-${{github.sha}}"
+
+      - name: import image
+        run: docker load -i front.tar
 
       - name: Scan Docker image for vulnerabilities
         uses: aquasecurity/trivy-action@master
         with:
-          image-ref: "myapp:${{ github.sha }}"
+          image-ref: "frum-back:${{ github.sha }}"
           format: "table"
           exit-code: 1
           ignore-unfixed: true
