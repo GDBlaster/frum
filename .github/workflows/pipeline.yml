@@ -57,7 +57,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t frum-front:${{ github.sha }} ./front
-          docker save "frum-front:${{ github.sha }}" front.tar
+          docker save -o front.tar "frum-front:${{ github.sha }}"
 
       - name: upload image artifact
         uses: actions/upload-artifact@v6
@@ -82,7 +82,7 @@ jobs:
       - name: Build Docker Image
         run: |
           docker build -t frum-back:${{ github.sha }} ./back
-          docker save "frum-back:${{ github.sha }}" back.tar
+          docker save -o back.tar "frum-back:${{ github.sha }}"
 
       - name: upload image artifact
         uses: actions/upload-artifact@v6
@@ -120,10 +120,10 @@ jobs:
       - name: import artifact
         uses: actions/download-artifact@v8
         with:
-          name: "front-image-${{github.sha}}"
+          name: "back-image-${{github.sha}}"
 
       - name: import image
-        run: docker load -i front.tar
+        run: docker load -i back.tar
 
       - name: Scan Docker image for vulnerabilities
         uses: aquasecurity/trivy-action@master
