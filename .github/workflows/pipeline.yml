@@ -6,19 +6,15 @@ on:
 jobs:
   Prettier:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
       - name: Install node
         uses: actions/setup-node@v6
         with:
           node-version: 24
-
       - name: Install Prettier
         run: npm install --save-dev prettier
-
       - name: Prettier Check
         run: npx prettier . --check
 
@@ -27,17 +23,28 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
-
       - name: Install python
         uses: actions/setup-python@v6
         with:
           python-version: "3.14"
-
       - name: Install linting tools
         run: pip install black ruff
-
       - name: Formating
         run: black . --check
-
       - name: Lint
         run: ruff check .
+
+  Python-Security:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+      - name: Perform Bandit Analysis
+        uses: PyCQA/bandit-action@v1
+      - uses: pypa/gh-action-pip-audit@v1.1.0
+        with:
+          inputs: requirements.txt
