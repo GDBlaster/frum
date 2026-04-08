@@ -42,7 +42,7 @@ jobs:
       - name: Lint
         run: ruff check .
 
-  container-betterleaks:
+  Betterleaks:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/betterleaks/betterleaks:latest
@@ -53,4 +53,4 @@ jobs:
           fetch-depth: 0
 
       - name: Run Betterleaks
-        run: betterleaks git
+        run: betterleaks git .
