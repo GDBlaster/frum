@@ -58,9 +58,13 @@ jobs:
         run: docker build -t myapp:${{ github.sha }} ./front
 
       - name: Scan Docker image for vulnerabilities
-        run: |
-          trivy image myapp:${{ github.sha }}
-          if [ $? -ne 0 ]; then exit 1; fi
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "your-docker-image:latest"
+          format: "table"
+          exit-code: 1
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
 
   docker-back:
     runs-on: ubuntu-latest
@@ -78,6 +82,10 @@ jobs:
         run: docker build -t myapp:${{ github.sha }} ./back
 
       - name: Scan Docker image for vulnerabilities
-        run: |
-          trivy image myapp:${{ github.sha }}
-          if [ $? -ne 0 ]; then exit 1; fi
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "your-docker-image:latest"
+          format: "table"
+          exit-code: 1
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
