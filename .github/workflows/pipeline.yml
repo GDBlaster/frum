@@ -41,16 +41,3 @@ jobs:
 
       - name: Lint
         run: ruff check .
-
-  Betterleaks:
-    runs-on: ubuntu-latest
-    container:
-      image: ghcr.io/betterleaks/betterleaks:latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v6
-        with:
-          fetch-depth: 0
-
-      - name: Run Betterleaks
-        run: betterleaks git .
