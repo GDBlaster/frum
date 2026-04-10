@@ -6,7 +6,6 @@ on:
 jobs:
   Prettier:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -30,6 +29,7 @@ jobs:
 
       - name: Install python
         uses: actions/setup-python@v6
+
         with:
           python-version: "3.14"
 
@@ -41,3 +41,47 @@ jobs:
 
       - name: Lint
         run: ruff check .
+
+  Bandit-scan:
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+      actions: read
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup python
+        uses: actions/setup-python@v6
+        with:
+          python-version: "3.14"
+
+      - name: install bandit
+        run: pip install bandit[sarif]
+
+      - name: Bandit scan
+        run: |
+          bandit -r ./back \
+          --severity-level medium \
+          --format sarif
+          --output bandit.sarif
+
+  pip-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Install C dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+          libmariadb-dev \
+          gcc \
+          libc6-dev \
+          python3-dev
+
+      - uses: pypa/gh-action-pip-audit@v1.1.0
+        with:
+          inputs: back/requirements.txt
