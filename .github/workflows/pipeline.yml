@@ -138,6 +138,9 @@ jobs:
     needs: [ docker-build-front, docker-build-back ]
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
       - name: Download Front Image
         uses: actions/download-artifact@v4
         with:
