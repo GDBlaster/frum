@@ -25,7 +25,7 @@ jobs:
       - name: Build and Push
         run: |
           TAG_NAME=${{ github.ref_name }}
-          IMAGE_ID=ghcr.io/${{ github.repository }}/back
+          IMAGE_ID=ghcr.io/gdblaster/frum/back
 
           docker build -t $IMAGE_ID:$TAG_NAME -t $IMAGE_ID:latest ./back
 
@@ -52,7 +52,7 @@ jobs:
       - name: Build and Push
         run: |
           TAG_NAME=${{ github.ref_name }}
-          IMAGE_ID=ghcr.io/${{ github.repository }}/front
+          IMAGE_ID=ghcr.io/gbdblaster/frum/front
 
           docker build -t $IMAGE_ID:$TAG_NAME -t $IMAGE_ID:latest ./front
 
