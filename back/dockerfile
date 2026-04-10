@@ -1,19 +1,44 @@
-FROM dhi.io/python:3-alpine3.23-dev
+# STAGE 1: BUILDER
+FROM dhi.io/python:3-alpine3.23-dev AS builder
 
 WORKDIR /app
 
 COPY ./requirements.txt /app
 
-RUN apk add \
+RUN python -m venv ./venv
+
+RUN addgroup -S frum && adduser -S frum -G frum
+
+RUN apk add --no-cache \
+    mariadb-connector-c \
     mariadb-connector-c-dev \
     gcc \
-    musl-dev\
+    musl-dev \
     python3-dev
 
-RUN pip install -r requirements.txt
+RUN ./venv/bin/pip install -r requirements.txt
 
-COPY ./src /app
+# STAGE 2: RUNTIME
+FROM dhi.io/python:3-alpine3.23
 
-EXPOSE 5000:5000
+COPY --from=builder /etc/passwd /etc/passwd
 
-ENTRYPOINT ["python", "api.py"]
+COPY --from=builder /etc/group /etc/group
+
+COPY --from=builder /etc/shadow /etc/shadow
+
+COPY --from=builder /usr/lib/libmariadb.so* /usr/lib/
+
+COPY --from=builder /usr/lib/mariadb/ /usr/lib/mariadb/
+
+WORKDIR /app
+
+COPY --chown=frum:frum --from=builder /app/venv /app/venv
+
+COPY --chown=frum:frum ./src /app
+
+USER frum
+
+EXPOSE 5000
+
+ENTRYPOINT ["/app/venv/bin/python", "api.py"]
