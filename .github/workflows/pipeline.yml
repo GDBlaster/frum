@@ -85,3 +85,97 @@ jobs:
       - uses: pypa/gh-action-pip-audit@v1.1.0
         with:
           inputs: back/requirements.txt
+
+  docker-build-front:
+    runs-on: ubuntu-latest
+    needs: [Bandit-scan, pip-audit]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build Docker Image
+        run: |
+          docker build -t frum-front:${{ github.sha }} ./front
+          docker save -o front.tar "frum-front:${{ github.sha }}"
+
+      - name: upload image artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: "front-image-${{github.sha}}"
+          path: front.tar
+          retention-days: 1
+          overwrite: true
+
+  docker-build-back:
+    runs-on: ubuntu-latest
+    needs: [Bandit-scan, pip-audit]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v4
+
+      - name: Build Docker Image
+        run: |
+          docker build -t frum-back:${{ github.sha }} ./back
+          docker save -o back.tar "frum-back:${{ github.sha }}"
+
+      - name: upload image artifact
+        uses: actions/upload-artifact@v6
+        with:
+          name: "back-image-${{github.sha}}"
+          path: back.tar
+          retention-days: 1
+          overwrite: true
+
+  docker-scan-front:
+    needs: docker-build-front
+    runs-on: ubuntu-latest
+    steps:
+      - name: import artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: "front-image-${{github.sha}}"
+
+      - name: import image
+        run: docker load -i front.tar
+
+      - name: Scan Docker image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "frum-front:${{ github.sha }}"
+          format: "table"
+          exit-code: 1
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
+
+  docker-scan-back:
+    needs: docker-build-back
+    runs-on: ubuntu-latest
+    steps:
+      - name: import artifact
+        uses: actions/download-artifact@v8
+        with:
+          name: "back-image-${{github.sha}}"
+
+      - name: import image
+        run: docker load -i back.tar
+
+      - name: Scan Docker image for vulnerabilities
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: "frum-back:${{ github.sha }}"
+          format: "table"
+          exit-code: 1
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
