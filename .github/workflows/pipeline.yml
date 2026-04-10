@@ -154,31 +154,13 @@ jobs:
           docker load -i back.tar
 
       - name: Start Application with Docker Compose
-        run: |
-          # Création d'un docker-compose.yml à la volée utilisant les images chargées
-          cat <<EOF > docker-compose.yml
-          services:
-            back:
-              image: frum-back:${{ github.sha }}
-              ports:
-                - "5000:5000"
-            front:
-              image: frum-front:${{ github.sha }}
-              ports:
-                - "8080:80"
-          EOF
-          
-          # Lancement en mode détaché
-          docker compose up -d
-          
-          # Pause pour laisser les services démarrer
-          sleep 10
+        run: docker compose up -d
 
       - name: Install Wapiti
         run: pip install wapiti3
 
       - name: Run Wapiti DAST Scan on Backend
-        run: wapiti -u http://localhost:8000/ -f txt -o wapiti-back-report.txt
+        run: wapiti -u http://localhost:5000/ -f txt -o wapiti-back-report.txt
 
       - name: Run Wapiti DAST Scan on Frontend
         run: wapiti -u http://localhost:8080/ -f txt -o wapiti-front-report.txt
