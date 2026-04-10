@@ -133,3 +133,64 @@ jobs:
           exit-code: 1
           ignore-unfixed: true
           severity: "CRITICAL,HIGH"
+
+  dast-wapiti:
+    needs: [ docker-build-front, docker-build-back ]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Front Image
+        uses: actions/download-artifact@v4
+        with:
+          name: "front-image-${{github.sha}}"
+
+      - name: Download Back Image
+        uses: actions/download-artifact@v4
+        with:
+          name: "back-image-${{github.sha}}"
+
+      - name: Load Docker Images
+        run: |
+          docker load -i front.tar
+          docker load -i back.tar
+
+      - name: Start Application with Docker Compose
+        run: |
+          # Création d'un docker-compose.yml à la volée utilisant les images chargées
+          cat <<EOF > docker-compose.yml
+          services:
+            back:
+              image: frum-back:${{ github.sha }}
+              ports:
+                - "5000:5000"
+            front:
+              image: frum-front:${{ github.sha }}
+              ports:
+                - "8080:80"
+          EOF
+          
+          # Lancement en mode détaché
+          docker compose up -d
+          
+          # Pause pour laisser les services démarrer
+          sleep 10
+
+      - name: Install Wapiti
+        run: pip install wapiti3
+
+      - name: Run Wapiti DAST Scan on Backend
+        run: wapiti -u http://localhost:8000/ -f txt -o wapiti-back-report.txt
+
+      - name: Run Wapiti DAST Scan on Frontend
+        run: wapiti -u http://localhost:8080/ -f txt -o wapiti-front-report.txt
+
+      - name: Stop Docker Compose
+        if: always()
+        run: docker compose down
+
+      - name: Upload Wapiti Reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: wapiti-reports
+          path: wapiti-*.txt
+          retention-days: 7
