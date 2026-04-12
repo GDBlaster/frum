@@ -1,13 +1,13 @@
 services:
   web:
-    image: ghcr.io/GDBlaster/frum/front:__VERSION__
+    image: ghcr.io/gdblaster/frum/front:__VERSION__
     ports:
       - "8080:80"
     depends_on:
       - api
 
   api:
-    image: ghcr.io/GDBlaster/frum/back:__VERSION__
+    image: ghcr.io/gdblaster/frum/back:__VERSION__
     env_file: "db.env"
     ports:
       - "5000:5000"
