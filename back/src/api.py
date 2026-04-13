@@ -6,6 +6,8 @@ import mariadb
 import os
 import hashlib
 import secrets
+import sys
+import random
 
 conn = mariadb.connect(
     user="user",
@@ -18,6 +20,7 @@ cursor = conn.cursor()
 
 app = Flask(__name__)
 CORS(app)
+
 
 @app.route("/login", methods=["POST"])
 def login():
@@ -47,6 +50,7 @@ def login():
             return jsonify({"error": "Wrong Username or Password"}), 403
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
+
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -80,6 +84,7 @@ def register():
 
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
+
 
 @app.route("/session", methods=["POST"])
 def session():
@@ -116,9 +121,31 @@ def session():
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
 
+
 @app.route("/health", methods=["GET"])
 def health():
-    return jsonify({"status":"healthy"}), 200
+    return jsonify({"status": "healthy"}), 200
+
+
+@app.route("/info", methods=["GET"])
+def info():
+    return jsonify(
+        {
+            "app": "frum",
+            "version": "1.0",
+            "mode": os.getenv("FRUM_MODE"),
+            "python": sys.version,
+        }
+    )
+
+
+@app.route("/unreliable", methods=["GET"])
+def unreliable_endpoint():
+    if random.random() < 1 / 3:
+        return jsonify({"error": "Internal Server Error"}), 500
+
+    return jsonify({"status": "success"}), 200
+
 
 def generateToken(userid):
     try:
@@ -132,6 +159,7 @@ def generateToken(userid):
         return token
     except Exception:
         return None
+
 
 if __name__ == "__main__":
     app.run(host=os.getenv("API_BIND_ADDRESS"), port=5000)
