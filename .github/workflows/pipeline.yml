@@ -65,7 +65,6 @@ jobs:
           bandit -r ./back \
           --severity-level medium \
           --format sarif
-          --output bandit.sarif
 
   pip-audit:
     runs-on: ubuntu-latest
