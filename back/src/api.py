@@ -19,7 +19,6 @@ cursor = conn.cursor()
 app = Flask(__name__)
 CORS(app)
 
-
 @app.route("/login", methods=["POST"])
 def login():
     data = request.get_json()
@@ -48,7 +47,6 @@ def login():
             return jsonify({"error": "Wrong Username or Password"}), 403
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
-
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -82,7 +80,6 @@ def register():
 
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
-
 
 @app.route("/session", methods=["POST"])
 def session():
@@ -119,7 +116,6 @@ def session():
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
 
-
 def generateToken(userid):
     try:
         token = secrets.token_urlsafe(32)
@@ -133,6 +129,5 @@ def generateToken(userid):
     except Exception:
         return None
 
-
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(host=os.getenv("API_BIND_ADDRESS"), port=5000)
