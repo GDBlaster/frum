@@ -54,7 +54,7 @@ def login():
 def register():
     data = request.get_json()
 
-    if not data or "username" not in data or "password" not in data:
+    if not data["username"].strip() or not data["password"].strip():
         return jsonify({"error": "username and password are required"}), 400
 
     try:
