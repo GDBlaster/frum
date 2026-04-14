@@ -71,6 +71,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v6
 
+      - name: Copy sql setup script to release
+        run: cp ./db ./release/
+
       - name: Interpolate image tags
         run: sed -i "s/__VERSION__/${{ github.ref_name }}/g" release/compose.yml
 
