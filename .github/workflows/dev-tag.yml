@@ -25,10 +25,18 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/gdblaster/frum/back:dev ./back
+          IMAGE_NAME=ghcr.io/gdblaster/frum/back
+          SHA=${{ github.sha }}
+
+          docker build -t $IMAGE_NAME:dev -t $IMAGE_NAME:$SHA ./back
 
       - name: Push to GHCR
-        run: docker push ghcr.io/gdblaster/frum/back:dev
+        run: |
+          IMAGE_NAME=ghcr.io/gdblaster/frum/back
+          SHA=${{ github.sha }}
+
+          docker push $IMAGE_NAME:dev
+          docker push $IMAGE_NAME:$SHA
 
   build-and-push-front:
     runs-on: ubuntu-latest
@@ -49,7 +57,15 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t ghcr.io/gdblaster/frum/front:dev ./front
+          IMAGE_NAME=ghcr.io/gdblaster/frum/front
+          SHA=${{ github.sha }}
+
+          docker build -t $IMAGE_NAME:dev -t $IMAGE_NAME:$SHA ./front
 
       - name: Push to GHCR
-        run: docker push ghcr.io/gdblaster/frum/front:dev
+        run: |
+          IMAGE_NAME=ghcr.io/gdblaster/frum/front
+          SHA=${{ github.sha }}
+
+          docker push $IMAGE_NAME:dev
+          docker push $IMAGE_NAME:$SHA
