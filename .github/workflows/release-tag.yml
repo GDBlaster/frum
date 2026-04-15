@@ -34,6 +34,9 @@ jobs:
           docker push $IMAGE_ID:latest
           docker push $IMAGE_ID:$SHA
 
+      - name: Trigger Render Deploy
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL_LATEST }}"
+
   publish-front:
     runs-on: ubuntu-latest
     permissions:
