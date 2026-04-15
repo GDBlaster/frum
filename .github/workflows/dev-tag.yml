@@ -69,3 +69,6 @@ jobs:
 
           docker push $IMAGE_NAME:dev
           docker push $IMAGE_NAME:$SHA
+
+      - name: Trigger Render Deploy
+        run: curl -X POST "${{ secrets.RENDER_DEPLOY_HOOK_URL }}"
