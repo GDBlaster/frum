@@ -6,6 +6,8 @@ import mariadb
 import os
 import hashlib
 import secrets
+import sys
+import random
 
 conn = mariadb.connect(
     user="user",
@@ -118,6 +120,31 @@ def session():
 
     except Exception:
         return jsonify({"error": "Internal server error"}), 500
+
+
+@app.route("/health", methods=["GET"])
+def health():
+    return jsonify({"status": "healthy"}), 200
+
+
+@app.route("/info", methods=["GET"])
+def info():
+    return jsonify(
+        {
+            "app": "frum",
+            "version": "1.0",
+            "mode": os.getenv("FRUM_MODE"),
+            "python": sys.version,
+        }
+    )
+
+
+@app.route("/unreliable", methods=["GET"])
+def unreliable_endpoint():
+    if random.random() < 1 / 3:
+        return jsonify({"error": "Internal Server Error"}), 500
+
+    return jsonify({"status": "success"}), 200
 
 
 def generateToken(userid):
