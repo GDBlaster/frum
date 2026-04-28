@@ -55,7 +55,7 @@ jobs:
         run: |
           TAG_NAME=${{ github.ref_name }}
           SHA=${{ github.sha }}
-          IMAGE_ID=ghcr.io/gbdblaster/frum/front
+          IMAGE_ID=ghcr.io/gdblaster/frum/front
 
           docker build -t $IMAGE_ID:$TAG_NAME -t $IMAGE_ID:latest -t $IMAGE_ID:$SHA ./front
 
