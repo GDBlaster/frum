@@ -72,10 +72,10 @@ jobs:
         uses: actions/checkout@v6
 
       - name: Copy sql setup script to release
-        run: cp ./db ./release/
+        run: cp -r ./db ./release/
 
       - name: Copy proxy settings to release
-        run: cp ./nginx ./release/
+        run: cp -r ./nginx ./release/
 
       - name: Interpolate image tags
         run: sed -i "s/__VERSION__/${{ github.ref_name }}/g" release/compose.yml
